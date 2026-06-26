@@ -12,7 +12,18 @@ const listingController = require("../controllers/listing.js");
 
 const multer = require("multer");
 const { storage } = require("../cloudConfig.js");
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only JPG, JPEG, PNG, WEBP and GIF images are allowed."));
+    }
+  },
+});
 
 // INDEX ROUTE & CREATE ROUTE
 

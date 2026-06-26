@@ -11,7 +11,7 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "wanderWow_dev",
-    allowedFormats: ["png", "jpeg", "jpg"],
+    allowedFormats: ["jpg", "jpeg", "png", "webp", "gif"],
   },
 });
 
