@@ -30,7 +30,51 @@ module.exports.showListing = async (req, res) => {
   res.render("listings/show.ejs", { listing });
 };
 
+// module.exports.createListing = async (req, res) => {
+//   if (!req.body.listing) {
+//     throw new expressError(400, "Invalid listing data");
+//   }
+
+//   if (!req.file) {
+//     req.flash("error", "Please upload an image.");
+//     return res.redirect("/listings/new");
+//   }
+
+//   let url = req.file.path;
+//   let filename = req.file.filename;
+
+//   // Geocoding
+//   const geoUrl = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(
+//     req.body.listing.location,
+//   )}&apiKey=${process.env.GEOAPIFY_API_KEY}`;
+
+//   const geoRes = await fetch(geoUrl);
+//   const geoData = await geoRes.json();
+
+//   const newListing = new Listing(req.body.listing);
+
+//   if (geoData.features.length > 0) {
+//     newListing.geometry = {
+//       type: "Point",
+//       coordinates: geoData.features[0].geometry.coordinates,
+//     };
+//   }
+
+//   newListing.owner = req.user._id;
+//   newListing.image = { url, filename };
+
+//   await newListing.save();
+
+//   req.flash("success", "NEW LISTING CREATED");
+//   res.redirect("/listings");
+// };
+
+
+
 module.exports.createListing = async (req, res) => {
+  console.log("REQ.FILE:");
+  console.log(req.file);
+
   if (!req.body.listing) {
     throw new expressError(400, "Invalid listing data");
   }
@@ -42,6 +86,9 @@ module.exports.createListing = async (req, res) => {
 
   let url = req.file.path;
   let filename = req.file.filename;
+
+  console.log("URL:", url);
+  console.log("Filename:", filename);
 
   // Geocoding
   const geoUrl = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(
