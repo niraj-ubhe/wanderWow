@@ -35,8 +35,11 @@ module.exports.createListing = async (req, res) => {
     throw new expressError(400, "Invalid listing data");
   }
 
-  console.log("BODY:", req.body);
-  console.log("FILE:", req.file);
+  if (!req.file) {
+    req.flash("error", "Please upload an image.");
+    return res.redirect("/listings/new");
+  }
+
   let url = req.file.path;
   let filename = req.file.filename;
 
