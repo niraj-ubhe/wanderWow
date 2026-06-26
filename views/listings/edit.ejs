@@ -19,6 +19,23 @@
       </div>
 
       <div class="mb-3">
+  <label class="form-label fw-semibold">Category</label>
+
+  <select
+    name="listing[category]"
+    class="form-select"
+    required
+  >
+    <option value="Trending" <%= listing.category === "Trending" ? "selected" : "" %>>Trending</option>
+    <option value="Rooms" <%= listing.category === "Rooms" ? "selected" : "" %>>Rooms</option>
+    <option value="Mountain" <%= listing.category === "Mountain" ? "selected" : "" %>>Mountain</option>
+    <option value="Lakefront" <%= listing.category === "Lakefront" ? "selected" : "" %>>Lakefront</option>
+    <option value="Beach" <%= listing.category === "Beach" ? "selected" : "" %>>Beach</option>
+    <option value="Arctic" <%= listing.category === "Arctic" ? "selected" : "" %>>Arctic</option>
+  </select>
+</div>
+
+      <div class="mb-3">
         <label class="form-label fw-semibold mb-1" for="description"
           >Description</label
         >
