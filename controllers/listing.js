@@ -35,6 +35,8 @@ module.exports.createListing = async (req, res) => {
     throw new expressError(400, "Invalid listing data");
   }
 
+  console.log("BODY:", req.body);
+  console.log("FILE:", req.file);
   let url = req.file.path;
   let filename = req.file.filename;
 
