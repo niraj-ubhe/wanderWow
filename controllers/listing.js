@@ -6,7 +6,7 @@ module.exports.index = async (req, res) => {
   let allListings;
 
   if (category) {
-    allListings = await Listing.find({ category: category });
+    allListings = await Listing.find({ category });
   } else {
     allListings = await Listing.find({});
   }
@@ -20,59 +20,20 @@ module.exports.renderNewForm = (req, res) => {
 
 module.exports.showListing = async (req, res) => {
   let { id } = req.params;
+
   const listing = await Listing.findById(id)
     .populate({ path: "reviews", populate: { path: "author" } })
     .populate("owner");
+
   if (!listing) {
     req.flash("error", "LISTING YOU REQUESTED DOES NOT EXIST!");
     return res.redirect("/listings");
   }
+
   res.render("listings/show.ejs", { listing });
 };
 
-// module.exports.createListing = async (req, res) => {
-//   if (!req.body.listing) {
-//     throw new expressError(400, "Invalid listing data");
-//   }
-
-//   if (!req.file) {
-//     req.flash("error", "Please upload an image.");
-//     return res.redirect("/listings/new");
-//   }
-
-//   let url = req.file.path;
-//   let filename = req.file.filename;
-
-//   // Geocoding
-//   const geoUrl = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(
-//     req.body.listing.location,
-//   )}&apiKey=${process.env.GEOAPIFY_API_KEY}`;
-
-//   const geoRes = await fetch(geoUrl);
-//   const geoData = await geoRes.json();
-
-//   const newListing = new Listing(req.body.listing);
-
-//   if (geoData.features.length > 0) {
-//     newListing.geometry = {
-//       type: "Point",
-//       coordinates: geoData.features[0].geometry.coordinates,
-//     };
-//   }
-
-//   newListing.owner = req.user._id;
-//   newListing.image = { url, filename };
-
-//   await newListing.save();
-
-//   req.flash("success", "NEW LISTING CREATED");
-//   res.redirect("/listings");
-// };
-
-
-
 module.exports.createListing = async (req, res) => {
-  
   if (!req.body.listing) {
     throw new expressError(400, "Invalid listing data");
   }
@@ -81,22 +42,16 @@ module.exports.createListing = async (req, res) => {
     req.flash("error", "Please upload an image.");
     return res.redirect("/listings/new");
   }
-console.log("Keys:", Object.keys(req.file));
 
-let url = req.file.secure_url || req.file.url;
-let filename =
-  req.file.public_id ||
-  req.file.filename ||
-  req.file.display_name;
-
-console.log("URL =", url);
-console.log("Filename =", filename);
-
-
+  const url = req.file.secure_url || req.file.url;
+  const filename =
+    req.file.public_id ||
+    req.file.filename ||
+    req.file.display_name;
 
   // Geocoding
   const geoUrl = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(
-    req.body.listing.location,
+    req.body.listing.location
   )}&apiKey=${process.env.GEOAPIFY_API_KEY}`;
 
   const geoRes = await fetch(geoUrl);
@@ -112,7 +67,11 @@ console.log("Filename =", filename);
   }
 
   newListing.owner = req.user._id;
-  newListing.image = { url, filename };
+
+  newListing.image = {
+    url,
+    filename,
+  };
 
   await newListing.save();
 
@@ -149,13 +108,25 @@ module.exports.updateListing = async (req, res) => {
   if (!req.body.listing) {
     throw new expressError(400, "Invalid listing data");
   }
-  let { id } = req.params;
-  let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
 
-  if (typeof req.file !== "undefined") {
-    let url = req.file.path;
-    let filename = req.file.filename;
-    listing.image = { url, filename };
+  let { id } = req.params;
+
+  let listing = await Listing.findByIdAndUpdate(id, {
+    ...req.body.listing,
+  });
+
+  if (req.file) {
+    const url = req.file.secure_url || req.file.url;
+    const filename =
+      req.file.public_id ||
+      req.file.filename ||
+      req.file.display_name;
+
+    listing.image = {
+      url,
+      filename,
+    };
+
     await listing.save();
   }
 
@@ -165,8 +136,9 @@ module.exports.updateListing = async (req, res) => {
 
 module.exports.deleteListing = async (req, res) => {
   let { id } = req.params;
-  let Deleted = await Listing.findByIdAndDelete(id);
+
+  await Listing.findByIdAndDelete(id);
+
   req.flash("success", "LISTING DELETED");
-  console.log(Deleted);
   res.redirect("/listings");
 };
