@@ -1,7 +1,11 @@
 <% layout("/layouts/boilerPlate") %>
 <div class="row mt-3">
   <div class="col-8 offset-2">
-    <form method="POST" action="/listings/<%=listing._id%>?_method=PUT">
+    <form
+      method="POST"
+      action="/listings/<%=listing._id%>?_method=PUT"
+      enctype="multipart/form-data"
+    >
       <h3 class="fw-bold text-center mb-4">Edit Your listing</h3>
 
       <div class="mb-3">
@@ -64,12 +68,18 @@
       </div>
 
       <div class="mb-3">
-        <label class="form-label fw-semibold mb-1" for="image">Image URL</label>
+        Original Image </br>
+        <img src="<%= originalImageUrl%> "/>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold mb-1" for="image"
+          >Upload New Image</label
+        >
         <input
-          class="form-control  "
-          name="listing[image][url]"
-          value="<%= listing.image.url %>"
-          type="text"
+          class="form-control"
+          name="listing[image]"         
+          type="file"
         />
       </div>
 

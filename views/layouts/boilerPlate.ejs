@@ -21,11 +21,17 @@
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
       rel="stylesheet"
     />
+    <link href="/css/rating.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link href="/css/show.css" rel="stylesheet"/>
+   <link href="/css/index.css" rel="stylesheet"/>
+  
   </head>
-  <body>
-    <%- include("../includes/navbar.ejs") %>
-    <%- include("../includes/flash.ejs") %>
-    <div class="container"><%- body %></div>
+
+  <body class="d-flex flex-column min-vh-100">
+    <%- include("../includes/navbar.ejs") %> <%-
+    include("../includes/flash.ejs") %>
+    <main class="container flex-grow-1"><%- body %></main>
     <%- include("../includes/footer.ejs") %>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

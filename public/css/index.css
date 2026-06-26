@@ -1,0 +1,128 @@
+#filters-container{
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    width: 100%;
+
+    padding: 1rem 2rem;
+    margin-bottom: 1.5rem;
+
+    border-bottom: 1px solid #eee;
+}
+
+#filters{
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    flex: 1;
+    min-width: 0;
+
+    scroll-behavior: smooth;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#filters::-webkit-scrollbar{
+    display: none;
+}
+
+.filter-link{
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0;
+}
+
+.filters{
+    opacity: 0.7;
+    text-align: center;
+    margin: 1rem;
+    min-width: 80px;
+    flex-shrink: 0;
+
+    transition: all 0.25s ease;
+}
+
+.filters:hover{
+    opacity: 1;
+    cursor: pointer;
+    transform: translateY(-3px);
+}
+
+.filters p{
+    font-size: 0.9rem;
+    margin-top: 0.45rem;
+    margin-bottom: 0;
+}
+
+.filters i{
+    transition: transform 0.25s ease;
+}
+
+.filters:hover i{
+    transform: scale(1.15);
+}
+
+#filters a{
+    transition: all 0.2s ease;
+}
+
+.tax-toggle{
+    flex-shrink: 0;
+    border: 1px solid #e2e2e2;
+    border-radius: 2rem;
+    padding: 0.8rem 1rem;
+    white-space: nowrap;
+    background: #fff;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.tax-toggle:hover{
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+    border-color: #cfcfcf;
+}
+
+#leftBtn,
+#rightBtn{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.1rem;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+    transition: all 0.25s ease;
+}
+
+#leftBtn:hover,
+#rightBtn:hover{
+    transform: scale(1.08);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+#leftBtn:active,
+#rightBtn:active{
+    transform: scale(0.95);
+}
+
+#leftBtn:focus,
+#rightBtn:focus{
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+
+.tax-info{
+    display: none;
+}

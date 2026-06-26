@@ -1,6 +1,154 @@
-<nav class="navbar navbar-expand-md bg-body-tertiary border-bottom sticky-top">
+<style>
+  .navbar {
+    background: #fff !important;
+    padding: 0.8rem 2rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  }
+
+  .container-fluid {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .navbar-brand {
+    color: #ff5a5f !important;
+    font-size: 2rem;
+    margin-right: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .navbar-brand:hover {
+    transform: scale(1.08);
+  }
+
+  .navbar-collapse {
+    display: flex !important;
+    align-items: center;
+    width: 100%;
+  }
+
+  .navbar-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .navbar-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .nav-link {
+    color: #222 !important;
+    font-weight: 500;
+    margin: 0 0.4rem;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #ff5a5f !important;
+}
+  .search-form {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    padding: 0.35rem;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+  }
+
+  .navbar-left .nav-link,
+.navbar-right .nav-link {
+    display: inline-block;
+}
+
+  .search-form:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  }
+
+  .search-form input {
+    border: none !important;
+    min-width: 300px;
+    box-shadow: none !important;
+    background: transparent;
+  }
+
+  .search-form input:focus {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  .search-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ff5a5f;
+    color: white;
+    transition: all 0.2s ease;
+  }
+
+  .search-btn:hover {
+    background-color: #e94e53;
+    transform: scale(1.05);
+  }
+
+  .add-home-link {
+    border-radius: 999px;
+    padding: 0.55rem 1rem !important;
+    transition: all 0.2s ease;
+  }
+
+  .add-home-link:hover {
+    background-color: #f7f7f7;
+  }
+
+  @media (max-width: 768px) {
+    .container-fluid {
+      display: block;
+    }
+
+    .navbar-collapse {
+      display: block !important;
+    }
+
+    .navbar-left,
+    .navbar-center,
+    .navbar-right {
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .search-form {
+      width: 100%;
+    }
+
+    .search-form input {
+      min-width: 0;
+      width: 100%;
+    }
+  }
+</style>
+
+<nav class="navbar navbar-expand-md sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><i class="fa-regular fa-compass"></i></a>
+
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-regular fa-compass"></i>
+    </a>
+
     <button
       class="navbar-toggler"
       type="button"
@@ -9,21 +157,52 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/listings">All Listings</a>
-        <a class="nav-link" href="/listings/new">Add New Listing</a>
+
+      <div class="navbar-left">
+        <a class="nav-link" href="/listings">
+          <b>Explore</b>
+        </a>
       </div>
-      <div class="navbar-nav ms-auto">
+
+      <div class="navbar-center">
+        <form class="search-form" role="search">
+          <input
+            class="form-control"
+            type="search"
+            placeholder="Start your search"
+            aria-label="Search"
+          />
+
+          <button class="search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+      </div>
+
+      <div class="navbar-right">
+        <a class="nav-link add-home-link" href="/listings/new">
+          Add Your Home
+        </a>
+
         <% if(!currUser){ %>
-        <a class="nav-link" href="/signup">Sign Up</a>
-        <a class="nav-link" href="/login">Login</a>
+          <a class="nav-link" href="/signup">
+            <b>Sign Up</b>
+          </a>
+
+          <a class="nav-link" href="/login">
+            <b>Login</b>
+          </a>
         <% } %>
+
         <% if(currUser){ %>
-        <a class="nav-link" href="/logout">Log Out</a>
-         <% } %>
+          <a class="nav-link" href="/logout">
+            <b>Log Out</b>
+          </a>
+        <% } %>
       </div>
+
     </div>
   </div>
 </nav>
