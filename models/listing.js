@@ -8,7 +8,7 @@ const listingSchema = new Schema({
   location: String,
   image: {
     url: String,
-    filenmae: String,
+    filename: String,
   },
   country: String,
   price: Number,

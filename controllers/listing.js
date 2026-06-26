@@ -72,9 +72,7 @@ module.exports.showListing = async (req, res) => {
 
 
 module.exports.createListing = async (req, res) => {
-  console.log("REQ.FILE:");
-  console.log(req.file);
-
+  
   if (!req.body.listing) {
     throw new expressError(400, "Invalid listing data");
   }
@@ -83,12 +81,13 @@ module.exports.createListing = async (req, res) => {
     req.flash("error", "Please upload an image.");
     return res.redirect("/listings/new");
   }
+console.log(Object.keys(req.file));
+console.log(req.file);
+const url = req.file.path;
+const filename = req.file.filename;
 
-  let url = req.file.path;
-  let filename = req.file.filename;
-
-  console.log("URL:", url);
-  console.log("Filename:", filename);
+console.log("URL =", url);
+console.log("Filename =", filename);
 
   // Geocoding
   const geoUrl = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(
