@@ -68,9 +68,18 @@
       </div>
 
       <div class="mb-3">
-        Original Image </br>
-        <img src="<%= originalImageUrl%> "/>
-      </div>
+  <label class="form-label fw-semibold">Current Image</label><br>
+
+  <% if (originalImageUrl) { %>
+    <img
+      src="<%= originalImageUrl %>"
+      class="img-fluid rounded"
+      style="max-width: 250px;"
+    >
+  <% } else { %>
+    <p class="text-muted">No image available.</p>
+  <% } %>
+</div>
 
       <div class="mb-3">
         <label class="form-label fw-semibold mb-1" for="image"
