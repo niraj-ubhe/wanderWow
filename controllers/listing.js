@@ -81,13 +81,18 @@ module.exports.createListing = async (req, res) => {
     req.flash("error", "Please upload an image.");
     return res.redirect("/listings/new");
   }
-console.log(Object.keys(req.file));
-console.log(req.file);
-const url = req.file.path;
-const filename = req.file.filename;
+console.log("Keys:", Object.keys(req.file));
+
+let url = req.file.secure_url || req.file.url;
+let filename =
+  req.file.public_id ||
+  req.file.filename ||
+  req.file.display_name;
 
 console.log("URL =", url);
 console.log("Filename =", filename);
+
+
 
   // Geocoding
   const geoUrl = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(
